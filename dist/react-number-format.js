@@ -149,7 +149,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    _this.state = {
 	      value: formattedValue,
-	      numAsString: _this.removeFormatting(formattedValue)
+	      numAsString: _this.removeFormatting(formattedValue),
+	      original: props.value
 	    };
 
 	    _this.onChange = _this.onChange.bind(_this);
@@ -182,10 +183,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var formattedValue = props.value === undefined ? this.formatNumString(lastNumStr) : this.formatValueProp();
 
-	        if (formattedValue !== stateValue) {
+	        if (formattedValue !== stateValue || this.state.original !== prevProps.value) {
 	          this.setState({
 	            value: formattedValue,
-	            numAsString: this.removeFormatting(formattedValue)
+	            numAsString: this.removeFormatting(formattedValue),
+	            original: prevProps.value
 	          });
 	        }
 	      }

@@ -69,7 +69,8 @@ const defaultProps = {
 class NumberFormat extends React.Component {
   state: {
     value?: string,
-    numAsString?: string
+    numAsString?: string,
+    original?: string
   }
   onChange: Function
   onKeyDown: Function
@@ -87,7 +88,8 @@ class NumberFormat extends React.Component {
 
     this.state = {
       value: formattedValue,
-      numAsString: this.removeFormatting(formattedValue)
+      numAsString: this.removeFormatting(formattedValue),
+      original: props.value
     }
 
     this.onChange = this.onChange.bind(this);
@@ -114,10 +116,11 @@ class NumberFormat extends React.Component {
 
       const formattedValue = props.value === undefined ? this.formatNumString(lastNumStr) : this.formatValueProp();
 
-      if (formattedValue !== stateValue) {
+      if (formattedValue !== stateValue || this.state.original !== prevProps.value) {
         this.setState({
           value : formattedValue,
-          numAsString: this.removeFormatting(formattedValue)
+          numAsString: this.removeFormatting(formattedValue),
+          original: prevProps.value
         })
       }
     }
